@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podman-alpine
+  labels:
+    app: podman-alpine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podman-alpine
+  template:
+    metadata:
+      labels:
+        app: podman-alpine
+    spec:
+      containers:
+        - name: podman-alpine
+          image: docker.io/tmatsu200/podman-alpine:3.18
+          workingDir : /home/podman
+          args:
+            - sleep
+            - "infinity"
+          securityContext:
+            privileged: true
+            runAsUser: 1000
